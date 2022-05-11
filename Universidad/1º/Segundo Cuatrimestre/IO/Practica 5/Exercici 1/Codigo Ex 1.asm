@@ -8,8 +8,19 @@
 
 .org 100h
 lxi h, mat1
-lxi b, mat2
+lxi b, mat3
 mvi d, contador
+
+movement:
+	mov a, M
+	stax b
+	inx h
+	inx b
+	dcr d
+jnz movement
+mvi d,contador
+lxi b,mat3
+
 loop:
 	mov e, M
 	ldax b
