@@ -1,15 +1,19 @@
-.DATA 00h 01h
-.ORG 24h 00h
-C3h 09h 05h 
-.ORG 00h 05h
-21h 00h 01h 
-F9h 
-CDh 09h 05h 
+.DATA 00h 00h
+77h 
+44h 
+3Eh 
+6Eh 
+4Dh 
+6Bh 
+.DATA 13h 00h
 00h 
+.ORG 24h 00h
+DBh 00h 
+11h 00h E0h 
+12h 
+D6h 30h 
+4Fh 
+0Ah 
+D3h 07h 
+C3h 30h 00h 
 76h 
-F5h 
-DBh 04h 
-E6h 9681h 
-D3h 05h 
-F1h 
-C9h 
