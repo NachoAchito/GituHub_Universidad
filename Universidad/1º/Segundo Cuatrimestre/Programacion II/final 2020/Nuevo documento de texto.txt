@@ -1,0 +1,230 @@
+Exercici 1:
+
+a)
+
+El que aconseguim es posar el panel1 amb tot el seu contingut en la zona nord de la finestra
+
+b)
+
+El layout manager que es fa servir es el BorderLayout
+
+Exercici 2:
+
+package examen;
+public class Pis extends Vivenda{
+
+	private int numVeins;
+	private int planta;
+
+	public  Pis(Propietari propietari, float preu, float tamany, int numVeins, int planta){
+		super(propietari, preu ,tamany);
+		this.numVeins = numVeins;
+		this.planta = planta;
+
+	}
+
+
+
+	public  Pis(){
+
+
+
+	}	
+
+
+
+	
+	public String toString(){
+
+	return "Propietari: " + propietari + ",Preu: " + preu + ", Tamany: " + tamany + ",Numero de veins: " + numVeins 
+	+ "Planta: " + planta; 	
+
+	}
+
+
+
+
+
+
+public class Casa extends Vivenda{
+	
+	private float midaJardi;
+	private int plantes;
+
+	public Casa(Propietari propietari, float preu, float tamany, float midaJardi, int plantes){
+	
+		super(propietari, preu ,tamany);
+		this.midaJardi = midaJardi;
+		this.plantes = plantes;
+		
+	}
+
+	
+	public void llogar() throws ExcepcioAplicacio{
+		Calendar cal = Calendar.getInstance();
+		
+		if(cal.get(Calendar.MONTH) == Calendar.AUGUST){
+			throw new ExcepcioAplicacio("“El lloguer no es pot realitzar perquè la data 
+							d'avui no està dins de les dates correctes");
+		}
+		else{
+			super.llogar(true);
+		}
+ 		
+ 	}
+	
+
+	public String toString(){
+
+		return super.toString() + ", Mida del jardi: " + midaJardi + ", Plantes: " + plantes;
+
+
+	}
+
+}
+
+
+
+
+
+
+public class ExcepcioAplicacio extends Exception{
+
+	public ExcepcioAplicacio(){
+		super();
+	}
+		
+	public ExcepcioAplicacio(String missatge){
+		super(missatge);
+	}
+	
+
+
+}
+
+
+
+
+
+
+Exercici3:
+
+a)
+
+public class botoAfegirVivendaEscoltador() implements ActionListener{
+	
+	public void ActionPerformed(ActionEvent e){
+		afegirActionPerformed();
+	}
+	
+}
+
+
+b)
+
+afegirActionPerformed(){
+
+	if(rbtPis.isSelected()){
+		Propietari propietari = new Propietari(txtNom.getText());
+		Vivenda vivenda= new Pis(propietari, txtPreu.getText(), txtTamany.getText());
+		viviendes.add(pis);
+	}	
+	else{
+		Propietari propietari = new Propietari(txtNom.getText());
+		Vivenda vivenda = new Casa(propietari, txtPreu.getText(), txtTamany.getText());
+		viviendes.add(casa);
+	}
+
+}
+
+c)
+
+btnAfegirVivenda.addActionListener(new botoAfegirVivendaEscoltador());
+
+
+
+
+
+
+
+
+Exercici 4:
+
+a)
+
+
+class BotoCercaVivendaEscoltador implements ActionListener{
+
+	public void actionPerformed(ActionEvent e){
+		cercarActionPerformed();
+	}
+
+
+}
+
+
+b)
+
+private void cercarActionPerformed(){
+
+	ArrayList<Casa> llistaCerca = new ArrayList<Casa>();
+	float preu = txtCerca.getText();
+	boolean menorIgual = false;
+
+	if(!txtCerca.isEmpty()){
+		for(int i = 0; i < vivendes.size(); i++){
+			
+			if(vivendes.get(i) instanceof Casa){
+	
+				Casa casa = (Casa) vivendes.get(i);
+				
+				int retval = Float.compare(preu, casa.getPreu());
+
+				if(retval > 0) {
+					menorIgual = false;
+ 				} 
+				else if(retval < 0) {
+					menorIgual = true;
+ 				} 
+				else {
+					menorIgual = true;
+ 				}
+
+				if(menorIgual){
+					llistaCerca.add(casa);
+				}
+			}
+		}
+
+		omplirLista(llistaCerca);
+	}	
+
+}
+
+
+
+private void omplirLlista(ArrayList<Casa> llistaCerca){
+
+ 	DefaultListModel model = new DefaultListModel();
+ 	model.clear();
+
+ 	for(Casa item: llistaCerca){
+ 		model.addElement(item);
+ 	}
+
+ 	jlistCerca.setModel(model);
+}
+
+
+c)
+
+btnCercaVivendes.addActionListener(new BotoCercaVivendaEscoltador());
+
+
+
+
+
+
+
+
+}
