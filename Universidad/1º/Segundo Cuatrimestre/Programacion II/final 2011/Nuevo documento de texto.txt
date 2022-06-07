@@ -1,0 +1,227 @@
+exercici 1
+c)
+
+El JPanel fa servir el FlowLayout per defecte que consisteix en anar afegint components de esquerre a dreta
+
+
+Exercici 2:
+
+d)
+
+package examenparcial1011;
+public abstract class Instrument extends Producte{
+
+	private String nomMarca;
+	private String model;
+	private String color;
+
+	public Instrument(String nomProducte, int numPassadis, int numPrestatgeria, 
+				int codiBarres, float preu, String nomMarca, String model, String color){
+
+		super(nomProducte, numPassadis, numPrestatgeria, codiBarres, preu);
+
+		this.nomMarca = nomMarca;
+		this.model = model;
+		this.color = color;
+	}
+
+
+	// Aqui anirien els mètodes consultors i modificadors de la classe.
+
+
+	public abstract float calcularPreu();
+
+
+}
+
+
+e)
+
+
+public class Guitarra extends Instrument{
+
+	private int numCordes;
+	private float llargadaMasteler;
+
+	public Guitarra(String nomProducte, int numPassadis, int numPrestatgeria, int codiBarres, float preu, 
+				String nomMarca, String model, String color, int numCordes, float llargadaMasteler){
+
+		super(nomProducte, numPassadis, numPrestatgeria, codiBarres, preu, nomMarca, model, color);
+
+		this.numCordes = numCordes;
+		this.llargadaMasteler = llargadaMasteler;
+	}
+
+
+	// Aqui anirien els mètodes consultors i modificadors de la classe.
+
+
+	public float calcularPreu(){
+		
+		float preuTotal;
+		
+		preutTotal = super.getPreu() - (super.getPreu() * 0.5);
+
+		return preuTotal;
+
+	}
+
+}
+
+
+
+
+Exercici 3:
+
+a)
+
+S'hauria d'afegir un atribut static int que sigui un contador, per exemple: private static int cont;
+
+b)
+
+En el constructor s'haruia de anar incrementant el cont
+
+public Guitarra(String nomProducte, int numPassadis, int numPrestatgeria, int codiBarres, float preu, 
+				String nomMarca, String model, String color, int numCordes, float llargadaMasteler){
+
+		super(nomProducte, numPassadis, numPrestatgeria, codiBarres, preu, nomMarca, model, color);
+
+		this.numCordes = numCordes;
+		this.llargadaMasteler = llargadaMasteler;
+		cont++;
+}
+
+
+c)
+Afegim aquest metode a la classe guitarra
+
+public static String comptabilitzarGuitarres(){
+	String s;
+	s = "El número de guitarres és " + cont + ".";
+	return s;
+
+}
+
+
+Al metode de la calsse Aplicacio que s'activi quan es prem el boto:
+
+Guitarra.comptabilitzarGuitarres();
+
+
+
+Exercici 4:
+
+a)
+
+class calcularPreuListener implements ActionListener{
+
+	public void actionPerformed(ActionEvent ev){
+		
+		float preu = 0;
+			
+		for(int i = 0; i < llistaProductes.size(); i++){
+
+			preu += llistaProductes.get(i).calcularPreu();
+
+		}	
+			
+		txtPreuTotal.setText("El preu total és: " + preu + " €");
+
+	}
+
+
+
+
+}
+
+
+b)
+
+btnCalcularPreuTotal.addActionListener(new calcularPreuListener());
+
+
+c)
+
+Si que es una classe interna perque es crea dins de la clase Aplicacio, per tant es una classe dins d'una altre classe
+
+d)
+
+Els objectes que estaran involucrats seran l’objecte event de tipus ActionEvent i
+l’objecte component de tipus JButton
+
+
+Exercici 5:
+
+a)
+
+1. public static void main(String[] args) {
+2. 	Guitarra unaGuitarra = new Guitarra();
+3. 	Piano unPiano = new Piano();
+4. 	Instrument[ ] llistaInstruments = new Instrument[2];
+5. 	llistaInstruments[0]=unaGuitarra;
+6. 	llistaInstruments[1]=unPiano;
+7. 	Instrument primerInstrument;
+8. 	primerInstrument = llistaInstruments[0];
+9. 	primerInstrument.afinar();
+10. 	primerInstrument.repararCordes();	//Donara error ja que el metode repararCordes() esta en la calsse Guitarra i el primerInstrument es de tipus Instrument
+11. 	primerInstrument.repararPedals();	//Donara error ja que el metode repararPedals() esta en la calsse Piano i el primerInstrument es de tipus Instrument
+12. 	Piano segonInstrument;
+13. 	segonInstrument = primerInstrument[1];  //Donara error ja que segonInstrument es de tipus Piano i primerInstrument[1] es de tipus Instrument
+14. }
+
+
+b)
+
+En la linia 5 i 6 ja que en una array de tipus Instrument s'estan assignant objectes de tipus guitarra i piano, pero com aquests
+dos objectes hereten de Instrument.
+
+c)
+
+
+public static void main(String[] args){
+	Instrument[] llistaInstrumets = new Instrument[2];
+	llistaInstrumets [0]= new Guitarra();
+	llistaInstrumets [1]= new Piano();
+
+	Guitarra unaAltraGuitarra = (Guitarra) llistaInstruments[0];
+	unaAltraGuitarra. repararCordes ();
+}
+
+
+Exercici 6:
+
+guitarra1.model = "clàssic";
+guitarra2.model = "elèctric";
+guitarra3.model = "paco de lucia";
+
+guitarra3 = guitarra1;      //Guitarra3.model = classic
+guitarra1 = guitarra2;			//Guitarra1.model = electric
+guitarra1.model = "estrella";		//Guitarra1.model = estrella, Guitarra3.model = estrella
+guitarra2.model = "acústic";		//Guitarra2.model = acustic, Guitarra1.model = acustic
+
+
+
+
+System.out.println("El nom de l’objecte referenciat per guitarra1 és:" + guitarra1.model);	//acustic 
+System.out.println("El nom de l’objecte referenciat per guitarra2 és:" + guitarra2.model);	//acustic
+System.out.println("El nom de l’objecte referenciat per guitarra3 és:" + guitarra3.model);	//classic
+
+
+Exercici 7:
+
+a)
+
+Amb aquest codi aconseguim que quan es tanqui la finestra es tanqui l’aplicació en
+curs.
+
+
+b)
+
+Perque la interficie  windowListener te diversos metodes pero nosaltres nomes volem utilitzar 1, amb la calsse Adapter evitem implementar 
+els altres metodes
+
+
+
+
+
+
