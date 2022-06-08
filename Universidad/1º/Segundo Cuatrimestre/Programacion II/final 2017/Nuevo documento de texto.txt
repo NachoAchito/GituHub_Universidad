@@ -1,0 +1,180 @@
+Exercici 1:
+
+b)
+
+public class CompteEstalviTermini extends CompteBancari{
+
+	private Date dataCreacio;
+	private int mesosTermini;
+
+	public CompteEstalviTermini(Titular titular, int mesosTermini){
+
+		super(titular);
+		this.mesosTermini = mesosTermini;
+		dataCreacio = new Date();
+
+
+	}
+
+	public void retirarDiners(float quantitat){
+
+		float retirat = quantitat - (quantitat * 0.1);
+		saldoActual = saldoActual - retirat;
+	}
+
+
+	public void ingresarDiners(float quantitat) throws ExcepcioAplicacio{
+
+		if(quantitat < 1000){
+
+			throw new ExepcioAplicacio("ERROR: La quantitat per ingresar diners ha de ser superior a 1000 €");
+		}
+		else{
+		
+			saldoActual += quantitat;
+
+		}
+
+	}
+
+	//Consultors i modificadors
+
+}
+
+
+public class CompteCorrent extends CompteBancari{
+
+	
+
+
+	public CompteCorrent(Titular titular, ){
+		
+		super(titular);
+
+	}
+
+	
+
+	public void ingressarDiners(float quantitat) throws ExcepcioAplicacio{
+
+		saldoActual += quantitat;
+
+
+	}
+
+	public abstract void retirarDiners(float quantitat){
+
+		saldoActual -= quantitat;
+
+	}
+
+
+
+
+	public void transferencia(CompteCorrent compte, float quantitat) throws ExcepcioAplicacio{
+
+
+		if(compte instanceof CompteCorrent){
+			if(quantitat <= this.saldoActual){
+				this.saldoActual -= quantitat;
+				compte.saldoActual += quantitat;
+			}
+			else{
+				throw new ExcepcioAplicacio("ERROR: la quantitat que es vol transferir supera al saldo actual del compte " + this.getNumCompte());;
+			}
+		}
+		
+
+
+
+	}
+
+
+	//Conslutors i modificadors
+
+
+}
+
+
+c)
+
+per poder ingresar diners ja que el metode es abstracte en la classe tambe abstracta CompteBancari i com CompteCorrent hereta de CompteBancari
+ha de implementar el metode obligatoriament, sino no podra utilitzar el aquest metode ja que no estara implementat.
+
+
+d)
+
+
+private void rbtCCorrentActionPerformed(){
+	Titular titular= new Titular(txtNom.getText(), txtDNI.getText());
+	CompteCorrent compte = new CompteCorrent(titular);
+	llistaComptesTitulars.add(compte);
+}
+
+
+e) 
+//Sin acabar
+
+btnTransferencia.addActionListener(new BotoTransferenciaListener());
+
+class BotoTransferenciaListener extends ActionListener{
+	public void ActionPerformed(ActionEvent e){
+		realitzarTransferencia();
+	}
+
+
+	private void realitzarTransferencia(){
+
+		CompteCorrent origen;
+		CompteCorrent desti;
+
+		Iterator<CompteBancari> it = llistaComptesTitulars.iterator();
+		while(it.hasNext()){
+
+			CompteBancari compte = it.next();
+			cercarCompte(int numCompte)
+			
+
+			
+
+	
+		}
+
+	}
+
+
+	private CompteBancari cercarCompte(int numCompte){
+
+		if(compte.getNumCompte() == txtOrigen.getText() && compte instanceof CompteCorrent){
+			origen = (CompteCorrent) compte;
+		}
+		else if(compte.getNumCompte() == txtDesti.getText() && compte instanceof CompteCorrent){
+			desti = (CompteCorrent) compte;
+		}	
+
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
